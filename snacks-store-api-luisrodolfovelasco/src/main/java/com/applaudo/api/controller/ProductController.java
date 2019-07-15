@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -21,6 +23,8 @@ import com.applaudo.api.model.Product;
 @RestController
 @RequestMapping("/product")
 public class ProductController {
+	
+	public static final Logger logger = LoggerFactory.getLogger(ProductController.class);
 	
 	@Autowired
 	ProductDAO productDAO;
@@ -73,5 +77,24 @@ public class ProductController {
 		productDAO.delete(pro);
 		
 		return ResponseEntity.ok().build();
+	}
+	
+	@PutMapping("/update/price/{id}")
+	public ResponseEntity<Product> updatePriceProduct(@PathVariable(value="id") Long entityId, @Valid @RequestBody Product entityDetails) {
+		
+		logger.info("Modifying product {} to price: {}", entityDetails.getName(), entityDetails.getPrice());
+		
+		Product pro = productDAO.findOne(entityId);
+		
+		if(pro == null) {
+			logger.error("Unable to modify the product price with name {}, product doesn't exist", entityDetails.getName());
+			return ResponseEntity.notFound().build();
+		}
+		
+		pro.setPrice(entityDetails.getPrice());
+		
+		Product updateProduct = productDAO.save(pro);
+		
+		return ResponseEntity.ok().body(updateProduct);
 	}
 }
