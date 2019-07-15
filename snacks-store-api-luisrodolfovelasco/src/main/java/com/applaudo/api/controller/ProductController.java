@@ -1,5 +1,7 @@
 package com.applaudo.api.controller;
 
+import java.security.Principal;
+import java.util.Date;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -18,7 +20,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.applaudo.api.dao.ProductDAO;
+import com.applaudo.api.dao.ProductPurchaseDAO;
 import com.applaudo.api.model.Product;
+import com.applaudo.api.model.ProductPurchase;
 
 @RestController
 @RequestMapping("/product")
@@ -28,6 +32,9 @@ public class ProductController {
 	
 	@Autowired
 	ProductDAO productDAO;
+	
+	@Autowired
+	ProductPurchaseDAO productPurchaseDAO;
 	
 	@PostMapping("/create")
 	public Product createProduct(@Valid @RequestBody Product entity) {
@@ -96,5 +103,37 @@ public class ProductController {
 		Product updateProduct = productDAO.save(pro);
 		
 		return ResponseEntity.ok().body(updateProduct);
+	}
+	
+	@PostMapping("/purchase")
+	public ResponseEntity<ProductPurchase> purchaseProduct(@Valid @RequestBody ProductPurchase purchase/*, Principal principal*/) {
+		
+		Product pro = productDAO.findOneByName(purchase.getProductName());
+		
+		if(pro == null) {
+			logger.error("Unable to find the product with name {}, product doesn't exist", purchase.getProductName());
+			return ResponseEntity.notFound().build();
+		}
+		
+		if(pro.getQuantity() < purchase.getQuantity()) {
+			logger.error("Not enough stock for product name {}", purchase.getProductName());
+			return ResponseEntity.unprocessableEntity().build();
+		}
+		
+		int stock = pro.getQuantity();
+		pro.setQuantity(stock-purchase.getQuantity());
+		productDAO.save(pro);
+		purchase.setDate(new Date());
+		Principal principal = null;
+		purchase.setBuyer((principal!=null) ? principal.getName() : "buyer not logged in");
+		
+		productPurchaseDAO.save(purchase);
+		
+		return ResponseEntity.ok().body(purchase);
+	}
+	
+	@GetMapping("/purchase/list")
+	public List<ProductPurchase> getAllProductsPurchase(){
+		return productPurchaseDAO.findAll();
 	}
 }

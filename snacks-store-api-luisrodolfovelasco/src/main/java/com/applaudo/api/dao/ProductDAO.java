@@ -26,7 +26,13 @@ public class ProductDAO {
 		return productRepository.findOne(productId);
 	}
 	
+	public Product findOneByName(String name) {
+		return productRepository.findOneByName(name);
+	}
+	
 	public void delete(Product entity) {
 		productRepository.delete(entity);
 	}
+	
+	
 }
