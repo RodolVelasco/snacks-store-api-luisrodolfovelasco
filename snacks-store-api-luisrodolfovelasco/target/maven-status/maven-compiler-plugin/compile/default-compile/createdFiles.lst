@@ -1,11 +1,11 @@
 com\applaudo\api\repository\ProductPurchaseRepository.class
 com\applaudo\api\controller\ExceptionControllerAdvice.class
+com\applaudo\api\controller\ProductController.class
+com\applaudo\api\model\ProductPurchase.class
+com\applaudo\api\model\Product.class
 com\applaudo\api\exception\ProductsPaginationSortingException.class
 com\applaudo\api\repository\ProductRepository.class
 com\applaudo\api\dao\ProductDAO.class
 com\applaudo\api\config\ApplicationSecurityConfig.class
-com\applaudo\api\controller\ProductController.class
-com\applaudo\api\model\ProductPurchase.class
-com\applaudo\api\model\Product.class
 com\applaudo\api\SnackStoreApplication.class
 com\applaudo\api\dao\ProductPurchaseDAO.class
