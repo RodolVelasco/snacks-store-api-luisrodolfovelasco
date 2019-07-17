@@ -92,8 +92,6 @@ public class ProductController {
 	@PutMapping("/update/price/{id}")
 	public ResponseEntity<Product> updatePriceProduct(@PathVariable(value="id") Long entityId, @Valid @RequestBody Product entityDetails) {
 		
-		logger.info("Modifying product {} to price: {}", entityDetails.getName(), entityDetails.getPrice());
-		
 		Product pro = productDAO.findOne(entityId);
 		
 		if(pro == null) {
@@ -101,9 +99,18 @@ public class ProductController {
 			return ResponseEntity.notFound().build();
 		}
 		
+		Product oldPro =  new Product();
+		oldPro.setId(pro.getId());
+		oldPro.setName(pro.getName());
+		oldPro.setLikes(pro.getLikes());
+		oldPro.setPrice(pro.getPrice());
+		oldPro.setQuantity(pro.getQuantity());
+		
 		pro.setPrice(entityDetails.getPrice());
 		
 		Product updateProduct = productDAO.save(pro);
+		
+		logger.info("Product {} with price: {} has been updated to price: {} ", pro.getName(), oldPro.getPrice(), updateProduct.getPrice());
 		
 		return ResponseEntity.ok().body(updateProduct);
 	}
@@ -125,7 +132,7 @@ public class ProductController {
 	}
 	
 	@PostMapping("/purchase")
-	public ResponseEntity<ProductPurchase> purchaseProduct(@Valid @RequestBody ProductPurchase purchase/*, Principal principal*/) {
+	public ResponseEntity<ProductPurchase> purchaseProduct(@Valid @RequestBody ProductPurchase purchase, Principal principal) {
 		
 		Product pro = productDAO.findOneByName(purchase.getProductName());
 		
@@ -135,7 +142,7 @@ public class ProductController {
 		}
 		
 		if(pro.getQuantity() < purchase.getQuantity()) {
-			logger.error("Not enough stock for product name {}", purchase.getProductName());
+			logger.error("Not enough stock for product {}", purchase.getProductName());
 			return ResponseEntity.unprocessableEntity().build();
 		}
 		
@@ -143,10 +150,11 @@ public class ProductController {
 		pro.setQuantity(stock-purchase.getQuantity());
 		productDAO.save(pro);
 		purchase.setDate(new Date());
-		Principal principal = null;
 		purchase.setBuyer((principal!=null) ? principal.getName() : "buyer not logged in");
 		
 		productPurchaseDAO.save(purchase);
+		
+		logger.info("User: {} bought {} in a quantity of {} on {}", purchase.getBuyer(), purchase.getProductName(), purchase.getQuantity(), purchase.getDate());
 		
 		return ResponseEntity.ok().body(purchase);
 	}
