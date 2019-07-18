@@ -9,7 +9,20 @@ For building and running the application you need:
 # Running the application locally
 There are several ways to run a Spring Boot application on your local machine. Since recruiters need to review the code, below you will find how to clone this repository, mount it and deploying it in Spring Tool Suite (STS)
 
-- Open STS
-- Go to "Quick Access" textbox and type "git". Select "Git repositories (Git)
-- Once "Git repositories" tab is open, select "Clone a repository" link
-- Once a window opened, In URI text field type "
+1. Open STS
+2. Go to "Quick Access" textbox and type "git". Select "Git repositories (Git)
+3. Once "Git repositories" tab is open, select "Clone a repository" link
+4. Once a window is opened, in URI textfield paste this link "https://github.com/RodolVelasco/snacks-store-api-luisrodolfovelasco.git"
+5. Click "Next", then select "master" branch and click "Finish"
+6. Go to "Package Explorer" and right click, select "Import" and then select "Existing Maven Project. Select the folder file location where you download the clone in step 4
+7. Wait until dependiencies download
+8. Right click in project's name and go to "Run as", then go to "Maven" and select "Maven build". Type "clean install" in "Goals" textfield
+9. Wait to see a message that says "BUILD SUCCESS",
+10. In "src/main/resources/application.properties" file, type database user and password credentials
+11. Ensure MySQL is up and running
+12. Import postman collection from this link (https://www.getpostman.com/collections/b2d79b66a0bfd98f8571)
+13. Right click in project's name, select "Run as" and then "Spring Boot Application"
+## Authors
+* Rodolfo Velasco
+## Copyright
+Released under the Apache License 2.0. See the [LICENSE](https://github.com/codecentric/springboot-sample-app/blob/master/LICENSE) file.
