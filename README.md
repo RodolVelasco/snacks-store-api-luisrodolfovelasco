@@ -6,6 +6,7 @@ For building and running the application you need:
 - [Maven 3](https://maven.apache.org)
 - [Spring Tool Suite](https://spring.io/tools3/sts/all)
 - [Postman](https://www.getpostman.com/downloads/canary)
+- [MySQL Server](https://dev.mysql.com/downloads/mysql/)
 # Running the application locally
 There are several ways to run a Spring Boot application on your local machine. Since recruiters need to review the code, below you will find how to clone this repository, mount it and deploying it in Spring Tool Suite (STS)
 
