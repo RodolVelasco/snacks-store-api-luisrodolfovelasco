@@ -24,5 +24,3 @@ There are several ways to run a Spring Boot application on your local machine. S
 13. Right click in project's name, select "Run as" and then "Spring Boot Application"
 ## Authors
 * Rodolfo Velasco
-## Copyright
-Released under the Apache License 2.0. See the [LICENSE](https://github.com/codecentric/springboot-sample-app/blob/master/LICENSE) file.
