@@ -15,7 +15,7 @@ There are several ways to run a Spring Boot application on your local machine. S
 3. Once "Git repositories" tab is open, select "Clone a repository" link
 4. Once a window is opened, in URI textfield paste this link "https://github.com/RodolVelasco/snacks-store-api-luisrodolfovelasco.git"
 5. Click "Next", then select "master" branch and click "Finish"
-6. Go to "Package Explorer" and right click, select "Import" and then select "Existing Maven Project. Select the folder file location where you download the clone in step 4
+6. Go to "Package Explorer" and right click, select "Import" and then select "Existing Maven Project. Go to the folder file location where you download the clone in step 4 (git folder). Then navigate and select the project's folder git/snacks-store-api-luisrodolfovelasco/snacks-store-api-luisrodolfovelasco
 7. Wait until dependiencies download
 8. Right click in project's name and go to "Run as", then go to "Maven" and select "Maven build". Type "clean install" in "Goals" textfield
 9. Wait to see a message that says "BUILD SUCCESS",
