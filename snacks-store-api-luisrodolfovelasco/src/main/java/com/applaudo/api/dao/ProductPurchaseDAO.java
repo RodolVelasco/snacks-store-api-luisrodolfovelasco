@@ -1,6 +1,7 @@
 package com.applaudo.api.dao;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,8 +23,8 @@ public class ProductPurchaseDAO {
 		return productPurchaseRepository.findAll();
 	}
 	
-	public ProductPurchase findOne(Long productPurchaseId) {
-		return productPurchaseRepository.findOne(productPurchaseId);
+	public Optional<ProductPurchase> findOne(Long productPurchaseId) {
+		return productPurchaseRepository.findById(productPurchaseId);
 	}
 	
 	public ProductPurchase findOneByName(String name) {

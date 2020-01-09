@@ -1,6 +1,7 @@
 package com.applaudo.api.dao;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,8 +20,8 @@ public class ProductDAO {
 	@Autowired
 	ProductRepository productRepository;
 	
-	public Product save(Product entity) {
-		return productRepository.save(entity);
+	public Product save(Product pro) {
+		return productRepository.save(pro);
 	}
 	
 	public List<Product> findAll(){
@@ -28,7 +29,7 @@ public class ProductDAO {
 	}
 	
 	public Product findOne(Long productId) {
-		return productRepository.findOne(productId);
+		return productRepository.findById(productId).orElse(null);
 	}
 	
 	public Product findOneByName(String name) {
@@ -56,5 +57,4 @@ public class ProductDAO {
 		return data.getContent();
 		
 	}
-	
 }
