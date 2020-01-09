@@ -19,10 +19,10 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder authentication) throws Exception {
         authentication.inMemoryAuthentication()
-	        .withUser("user").password("user").roles("USER").and()
-	        .withUser("rodol").password("user").roles("USER").and()
-	        .withUser("applaudo").password("user").roles("USER").and()
-	        .withUser("admin").password("admin").roles("ADMIN");
+	        .withUser("user").password("{noop}user").roles("USER").and()
+	        .withUser("rodol").password("{noop}user").roles("USER").and()
+	        .withUser("applaudo").password("{noop}user").roles("USER").and()
+	        .withUser("admin").password("{noop}admin").roles("ADMIN");
     }
     
     @Override
